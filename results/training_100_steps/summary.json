@@ -1,0 +1,24 @@
+{
+  "task": "put the white mug on the left plate and put the yellow and white mug on the right plate",
+  "dataset": "lerobot/libero",
+  "episodes": [
+    0
+  ],
+  "fps": 10.0,
+  "steps": 100,
+  "batch_size": 1,
+  "learning_rate": 1e-05,
+  "seed": 42,
+  "device": "cpu",
+  "fixed_training_sample_loss_before": 1.3375012874603271,
+  "fixed_training_sample_loss_after": 1.0281753540039062,
+  "reloaded_loss": 1.0281753540039062,
+  "expert_parameter_max_change": 0.000732421875,
+  "output_shape": [
+    1,
+    50,
+    7
+  ],
+  "evaluation_scope": "Training-sample diagnostic only; no held-out evaluation or rollout.",
+  "normalization": "Dataset-provided statistics; saved with processors."
+}

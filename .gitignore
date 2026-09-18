@@ -1,0 +1,11 @@
+.venv/
+vendor/
+outputs/
+artifacts/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+*.safetensors
+*.tar.gz
+

@@ -1,0 +1,47 @@
+{
+  "checkpoint": "outputs/smolvla_20260914_233324/checkpoint",
+  "task": "put the white mug on the left plate and put the yellow and white mug on the right plate",
+  "train_episodes": [
+    0
+  ],
+  "heldout_episode": 18,
+  "seed": 123,
+  "device": "cpu",
+  "aggregate": [
+    {
+      "model": "base",
+      "split": "train",
+      "samples": 3,
+      "flow_loss_t05": 1.760037363165676,
+      "normalized_action_mse": 1.116050755286318
+    },
+    {
+      "model": "base",
+      "split": "heldout",
+      "samples": 3,
+      "flow_loss_t05": 1.2661107129389697,
+      "normalized_action_mse": 1.073903922144392
+    },
+    {
+      "model": "finetuned",
+      "split": "train",
+      "samples": 3,
+      "flow_loss_t05": 0.9690492672495322,
+      "normalized_action_mse": 0.6627043517677922
+    },
+    {
+      "model": "finetuned",
+      "split": "heldout",
+      "samples": 3,
+      "flow_loss_t05": 0.9396942901139212,
+      "normalized_action_mse": 0.6490924206616349
+    }
+  ],
+  "limitations": [
+    "Small deterministic frame sample from one episode per split, one noise draw and t=0.5.",
+    "Held out from this fine-tuning run only; base pretraining overlap is not established.",
+    "Both models reuse saved dataset-global normalization statistics, not train-only statistics.",
+    "Action MSE measures agreement with one demonstration, not task success. No environment rollout.",
+    "Base weights are evaluated with the same adapted 7D configuration as the fine-tuned weights."
+  ]
+}
