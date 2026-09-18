@@ -8,8 +8,14 @@ fi
 PYTHON_BIN="${PYTHON_BIN:-python3.12}"
 "$PYTHON_BIN" -c 'import sys; assert sys.version_info[:2] == (3,12), "Use Python 3.12"'
 command -v git >/dev/null
-command -v nvidia-smi >/dev/null
-nvidia-smi
+if command -v nvidia-smi >/dev/null; then
+  nvidia-smi
+elif [[ -x /usr/lib/wsl/lib/nvidia-smi ]]; then
+  /usr/lib/wsl/lib/nvidia-smi
+else
+  echo 'GPU not detected. On Windows, update the Windows NVIDIA driver and use WSL2. See WINDOWS_4060.md.' >&2
+  exit 1
+fi
 "$PYTHON_BIN" -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip

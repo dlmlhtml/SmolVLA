@@ -25,9 +25,14 @@
 
 详见 [评估结果](results/offline_eval/RESULTS.md)、[训练记录](results/training_100_steps/summary.json)。
 
-## 4060 新环境：从这里开始
+## Windows 4060：从这里开始
 
-要求 Linux 或 Windows WSL2，已安装 NVIDIA 驱动、Git、Python 3.12 及 venv 支持。先在该系统中确认 `nvidia-smi` 能看到 4060。
+**你的 Windows 保持不变，使用 WSL2 + Ubuntu 24.04 跑完整流程。**
+请先按 [Windows 4060 安装指南](WINDOWS_4060.md) 完成 WSL、Windows NVIDIA 驱动和 Ubuntu 系统依赖准备。
+提供 `setup_windows.ps1` 作为管理员 PowerShell 安装入口；`setup_4060.sh` 则在 Ubuntu 中执行。
+完整 LIBERO 流程目前面向 Linux/WSL2，不是把 Bash 命令直接放进 Windows PowerShell。
+
+完成准备后，以下命令在 **Ubuntu 终端** 执行：
 
 ```bash
 git clone https://github.com/dlmlhtml/SmolVLA.git
@@ -47,6 +52,8 @@ source .venv/bin/activate
 python train_smolvla.py --steps 100 --output outputs/smolvla_4060
 python eval_smolvla_offline.py --checkpoint outputs/smolvla_4060/checkpoint
 ```
+
+后续每次重新打开 Ubuntu，先 `cd ~/projects/SmolVLA` 并 `source .venv/bin/activate`。
 
 训练会保存权重、输入输出处理器、tokenizer、训练日志与 summary.json。
 输出目录必须是新目录；再次训练时换一个 --output 路径，避免覆盖之前的实验。
