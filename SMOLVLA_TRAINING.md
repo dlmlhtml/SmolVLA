@@ -60,7 +60,7 @@ episode/frame/timestamp 等字段用于定位数据，不是动作专家的主�
 ## 离线评估
 
 ```bash
-python3 eval_smolvla_offline.py --checkpoint outputs/smolvla_20260914_233324/checkpoint
+python3 eval_smolvla_offline.py --checkpoint outputs/smolvla_4060/checkpoint
 ```
 
 脚本从训练报告读取任务与训练 episode，通过 Parquet 的 task_index 自动寻找同任务、未用于本次微调的 episode。

@@ -11,7 +11,7 @@
 
 ## Linux / WSL2 准备
 
-把同一份 LeRobot 源码，以及整个训练输出目录带到该机器。
+按 README 安装固定版本的 LeRobot，并在该机器重新训练生成 outputs/smolvla_4060。
 训练输出目录必须包含 summary.json 和完整 checkpoint/（包括处理器和 tokenizer）。
 在 Python 3.12 的独立环境中，从仓库根目录安装：
 

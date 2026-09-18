@@ -38,27 +38,24 @@ source .venv/bin/activate
 
 安装脚本固定 LeRobot 源码到本次实验使用的 commit：`b6ec0060779550c0a157ae34feb89e0cf86012a8`。依赖按该版本约束解析，并在安装后输出 `environment-installed.txt`；这不是完整依赖锁文件。4060 的实际显存占用尚未测量。
 
-## 迁移已经训练的模型
+## 在 4060 上重新训练与评估
 
-模型约 865 MB，单独打包为 `smolvla-100steps-checkpoint.tar.gz`，不放进 Git 历史。该文件需要另行下载或复制；若已发布 Release，从 Release 获取。当前仓库内容本身不含模型权重。
-
-把压缩包放到本项目目录，验证随附的 SHA256 后解压：
+仓库只保存代码、说明和小体积实验记录，不上传 checkpoint 或模型压缩包。
+首次运行会从 Hugging Face 下载基础模型和所需数据，再在本机生成 checkpoint。
 
 ```bash
-# 发布后可从此 Release 下载模型；也可通过网页下载同名附件。
-gh release download checkpoint-100steps --repo dlmlhtml/SmolVLA \
-  --pattern 'smolvla-100steps-checkpoint.tar.gz*'
-sha256sum -c smolvla-100steps-checkpoint.tar.gz.sha256
-tar -xzf smolvla-100steps-checkpoint.tar.gz
+python train_smolvla.py --steps 100 --output outputs/smolvla_4060
+python eval_smolvla_offline.py --checkpoint outputs/smolvla_4060/checkpoint
 ```
 
-应得到 `outputs/smolvla_20260914_233324/summary.json` 及完整 `checkpoint/`。必须保留处理器统计量和 tokenizer，不要只拷贝 model.safetensors。
+训练会保存权重、输入输出处理器、tokenizer、训练日志与 summary.json。
+输出目录必须是新目录；再次训练时换一个 --output 路径，避免覆盖之前的实验。
 
 ## 录制模型实际执行的视频
 
 ```bash
 MUJOCO_GL=egl python rollout_smolvla.py \
-  --checkpoint outputs/smolvla_20260914_233324/checkpoint \
+  --checkpoint outputs/smolvla_4060/checkpoint \
   --episodes 1 --max-steps 520 --action-steps 10
 ```
 
@@ -79,7 +76,7 @@ python train_smolvla.py --steps 100
 
 # 对已训练模型做同任务离线比较
 python eval_smolvla_offline.py \
-  --checkpoint outputs/smolvla_20260914_233324/checkpoint
+  --checkpoint outputs/smolvla_4060/checkpoint
 ```
 
 | 文件 | 内容 |
